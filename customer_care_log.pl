@@ -110,14 +110,36 @@ foreach my $line (@content) {
     my @values = split(',', $line); # Split all elements in line into an array
     s{^\s+|\s+$}{}g foreach @values; # Remove white space both sides
     @$hashRef{@customerCareLogs} = @values; # Assign all elements to hash values
-    if ( defined $$options{'src_esme'} ) { matchValues($options->{'src_esme'}); next; }
-    elsif ( defined $$options{'dst_esme'} ) { matchValues($options->{'dst_esme'}); next; }
-    elsif ( defined $$options{'thread_id'} ) { matchValues($options->{'thread_id'}); next; }
-    elsif ( defined $$options{'src_addr'} ) { matchValues($options->{'src_addr'}); next; }
-    elsif ( defined $$options{'dst_addr'} ) { matchValues($options->{'dst_addr'}); next; }
-    elsif ( defined $$options{'pdu_type'} ) { matchValues($options->{'pdu_type'}); next; }
-    elsif ( defined $$options{'esm_class'} ) { matchValues($options->{'esm_class'}); next; }
-    else { $$HoHRef{'Line number: ' . $lineNumber++} = $hashRef; }
+
+    if ((defined $$options{'src_esme'}) &&
+	(grep $$options{'src_esme'}, values %{ $hashRef })) {
+	$$HoHRef{'Line number: ' . $lineNumber++} = $hashRef;
+    }
+    elsif ((defined $$options{'dst_esme'}) &&
+	   (grep $$options{'dst_esme'}, values %{ $hashRef })) {
+	$$HoHRef{'Line number: ' . $lineNumber++} = $hashRef;
+    }
+    elsif ((defined $$options{'thread_id'}) &&
+	   (grep $$options{'thread_id'}, values %{ $hashRef })) {
+	$$HoHRef{'Line number: ' . $lineNumber++} = $hashRef;
+    }
+    elsif ((defined $$options{'src_addr'}) &&
+	   (grep $$options{'src_addr'}, values %{ $hashRef })) {
+	$$HoHRef{'Line number: ' . $lineNumber++} = $hashRef;
+    }
+    elsif ((defined $$options{'dst_addr'}) &&
+	   (grep $$options{'dst_addr'}, values %{ $hashRef })) {
+	$$HoHRef{'Line number: ' . $lineNumber++} = $hashRef;
+    }
+    elsif ((defined $$options{'pdu_type'}) &&
+	   (grep $$options{'pdu_type'}, values %{ $hashRef })) {
+	$$HoHRef{'Line number: ' . $lineNumber++} = $hashRef;
+    }
+    elsif ((defined $$options{'esm_class'}) &&
+	   (grep $$options{'esm_class'}, values %{ $hashRef })) {
+	$$HoHRef{'Line number: ' . $lineNumber++} = $hashRef;
+    }
+    else { next; }
 }
 
 close $fh # wait for sort to finish
@@ -126,8 +148,9 @@ close $fh # wait for sort to finish
 print Dumper $HoHRef;
 
 sub matchValues {
-    print shift . "\n";
-    exit 0;
+    # $HoHRef = matchValues( \$hashRef );
+    my ( $hashRef ) = @_;
+    return $hashRef;
 }
 
 __END__
