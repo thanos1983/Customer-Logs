@@ -62,15 +62,15 @@ my @customerCareLogs = ('D',
 			'smsc_map_addr');
 
 my $options = {
-    'man' => 0,
-    'help' => 0,
-    'logfile' => undef,
-    'src_esme' => undef,
-    'dst_esme' => undef,
+    'man'       => 0,
+    'help'      => 0,
+    'logfile'   => undef,
+    'src_esme'  => undef,
+    'dst_esme'  => undef,
     'thread_id' => undef,
-    'src_addr' => undef,
-    'dst_addr' => undef,
-    'pdu_type' => undef,
+    'src_addr'  => undef,
+    'dst_addr'  => undef,
+    'pdu_type'  => undef,
     'esm_class' => undef,
 };
 
@@ -82,7 +82,7 @@ GetOptions(
     'src_addr|t:s'  => \$$options{'src_addr'},
     'dst_addr|r:s'  => \$$options{'dst_addr'},
     'pdu_type|p:s'  => \$$options{'pdu_type'},
-    'esm_class|c:s'  => \$$options{'esm_class'},
+    'esm_class|c:s' => \$$options{'esm_class'},
     'help|h'        => \$$options{'help'},
     'man|m'         => \$$options{'man'},
     ) or pod2usage(2);
@@ -95,7 +95,7 @@ die "\nOption -file or -f not specified.\n\n"
 
 die "\nUsage: $0 [options] [file ...]\n\n" unless @ARGV == 0;
 
-open(my $fh, '<:encoding(UTF-8)', $$options{'logfile'})
+open(my $fh, '<', $$options{'logfile'})
     or die "Could not open file '$$options{'logfile'}' $!";
 
 my @content = <$fh>;
@@ -112,32 +112,32 @@ foreach my $line (@content) {
     @$hashRef{@customerCareLogs} = @values; # Assign all elements to hash values
 
     if ((defined $$options{'src_esme'}) &&
-	(grep $$options{'src_esme'}, values %{ $hashRef })) {
-	$$HoHRef{'Line number: ' . $lineNumber++} = $hashRef;
+	($options->{'src_esme'} eq $hashRef->{'src_esme'})) {
+	$HoHRef->{'Line number: ' . $lineNumber++} = $hashRef;
     }
     elsif ((defined $$options{'dst_esme'}) &&
-	   (grep $$options{'dst_esme'}, values %{ $hashRef })) {
-	$$HoHRef{'Line number: ' . $lineNumber++} = $hashRef;
+	   ($options->{'dst_esme'} eq $hashRef->{'dst_esme'})) {
+	$HoHRef->{'Line number: ' . $lineNumber++} = $hashRef;
     }
     elsif ((defined $$options{'thread_id'}) &&
-	   (grep $$options{'thread_id'}, values %{ $hashRef })) {
-	$$HoHRef{'Line number: ' . $lineNumber++} = $hashRef;
+	   ($options->{'thread_id'} eq $hashRef->{'thread_id'})) {
+	$HoHRef->{'Line number: ' . $lineNumber++} = $hashRef;
     }
     elsif ((defined $$options{'src_addr'}) &&
-	   (grep $$options{'src_addr'}, values %{ $hashRef })) {
-	$$HoHRef{'Line number: ' . $lineNumber++} = $hashRef;
+	   ($options->{'src_addr'} eq $hashRef->{'src_addr'})) {
+	$HoHRef->{'Line number: ' . $lineNumber++} = $hashRef;
     }
     elsif ((defined $$options{'dst_addr'}) &&
-	   (grep $$options{'dst_addr'}, values %{ $hashRef })) {
-	$$HoHRef{'Line number: ' . $lineNumber++} = $hashRef;
+	   ($options->{'dst_addr'} eq $hashRef->{'dst_addr'})) {
+	$HoHRef->{'Line number: ' . $lineNumber++} = $hashRef;
     }
     elsif ((defined $$options{'pdu_type'}) &&
-	   (grep $$options{'pdu_type'}, values %{ $hashRef })) {
-	$$HoHRef{'Line number: ' . $lineNumber++} = $hashRef;
+	   ($options->{'pdu_type'} eq $hashRef->{'pdu_type'})) {
+	$HoHRef->{'Line number: ' . $lineNumber++} = $hashRef;
     }
     elsif ((defined $$options{'esm_class'}) &&
-	   (grep $$options{'esm_class'}, values %{ $hashRef })) {
-	$$HoHRef{'Line number: ' . $lineNumber++} = $hashRef;
+	   ($options->{'esm_class'} eq $hashRef->{'esm_class'})) {
+	$HoHRef->{'Line number: ' . $lineNumber++} = $hashRef;
     }
     else { next; }
 }
@@ -146,12 +146,6 @@ close $fh # wait for sort to finish
     or die "Error closing '$$options{'logfile'}' $!";
 
 print Dumper $HoHRef;
-
-sub matchValues {
-    # $HoHRef = matchValues( \$hashRef );
-    my ( $hashRef ) = @_;
-    return $hashRef;
-}
 
 __END__
 
