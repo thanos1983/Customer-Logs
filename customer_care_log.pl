@@ -145,7 +145,7 @@ foreach my $line (@content) {
 close $fh # wait for sort to finish
     or die "Error closing '$$options{'logfile'}' $!";
 
-print Dumper $HoHRef;
+print Dumper $HoHRef if values %{$HoHRef};
 
 __END__
 
