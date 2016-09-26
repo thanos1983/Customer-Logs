@@ -159,75 +159,61 @@ __END__
 
 =head1 NAME
 
-sample - Using Getopt::Long and Pod::Usage
+customer_care_log - process CDR log file and print the matched CDR(s) based on filtering parameters.
 
 =head1 SYNOPSIS
 
-sample [options] [file ...]
+customer_care_log [OPTIONS]... [FILE]...
 
 Options:
-    -help or -h
-    -man or -m
-    -file or -f
-    -src_esme or -s
-    -dst_esme or -d
-    -thread_id or -i
-    -src_addr or -t
-    -dst_addr or -r
-    -pdu_type or -p
-    -esm_class or -c
+    --file or -f,
+    --src_esme or -s,
+    --dst_esme or -d,
+    --thread_id or -i,
+    --src_addr or -t,
+    --dst_addr or -r,
+    --pdu_type or -p,
+    --esm_class or -c,
+    --help or -h,
+    --man or -m
 
-=head1 OPTIONS
+=head1 DESCRIPTION
+
+Process customer care log CDR(s) file to standard output.
+
+With no filtering parameter defined the standard output will print all the CDR(s).
 
 =over 8
 
-=item B<-help>
+=item B<-f, --file>
+log file to be processed
 
-Print a brief help message and exits.
+=item B<-s, --src_esme>
+diplay CDR(s) with matching source esme
 
-=item B<-man>
+=item B<-d, --dst_esme>
+diplay CDR(s) with matching destination esme
 
-Prints the manual page and exits.
+=item B<-i, --thread_id>
+diplay CDR(s) with matching thread id
 
-=item B<-file>
+=item B<-t, --src_addr>
+diplay CDR(s) with matching source addr
 
-file Something
+=item B<-r, --dst_addr>
+diplay CDR(s) with matching destination addr
 
-=item B<-esme>
+=item B<-p, --pdu_type>
+diplay CDR(s) with matching PDU type
 
-Esme to match in CDR
+=item B<-e, --esm_class>
+diplay CDR(s) with matching esme class
 
-=item B<-src_esme>
+=item B<-h, --help>
+print a brief help message and exits.
 
-Source something
-
-=item B<-dst_esme>
-
-Destination esme
-
-=item B<-dst_esme>
-
-Destination esme
-
-=item B<-thread_id>
-
-Thread id
-
-=item B<-src_addr>
-
-Source addr
-
-=item B<-dst_addr>
-
-Destination addr
-
-=item B<-pdu_type>
-
-Pdu type
-
-=item B<-esm_class>
-
-Esme class
+=item B<-m, --man>
+prints the manual page full documentation.
 
 =back
 
@@ -236,4 +222,14 @@ Esme class
 B<This program> will read the given input file(s) and do something
     useful with the contents thereof.
 
+=head1 AUTHOR
+
+Written by Athanasios Garyfalos.
+
+=head1 REPORTING BUGS
+Please report any bugs or feature requests to GARYFALOS at cpan.org. I will be notified, and I will try to make changes as soon as possible. I will update you with a reply as soon as the modifications will be applied.
+
+=head1 COPYRIGHT
+       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to  the  extent
+       permitted by law.
 =cut
