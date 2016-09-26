@@ -102,6 +102,7 @@ my @content = <$fh>;
 chomp @content;
 
 my $HoHRef = {};
+my $SecondaryHoHRef = {};
 my $lineNumber = 1;
 
 foreach my $line (@content) {
@@ -139,13 +140,20 @@ foreach my $line (@content) {
 	   ($options->{'esm_class'} eq $hashRef->{'esm_class'})) {
 	$HoHRef->{'Line number: ' . $lineNumber++} = $hashRef;
     }
-    else { next; }
+    else {
+	$SecondaryHoHRef->{'Line number: ' . $lineNumber++} = $hashRef;
+    }
 }
 
 close $fh # wait for sort to finish
     or die "Error closing '$$options{'logfile'}' $!";
 
-print Dumper $HoHRef if values %{$HoHRef};
+if (values %{$HoHRef}) {
+    print Dumper $HoHRef;
+}
+else {
+    print Dumper $SecondaryHoHRef;
+}
 
 __END__
 
