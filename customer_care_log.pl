@@ -64,6 +64,7 @@ my @customerCareLogs = ('D',
 my $options = {
     'man'       => 0,
     'help'      => 0,
+    'all'       => 0,
     'logfile'   => undef,
     'src_esme'  => undef,
     'dst_esme'  => undef,
@@ -83,6 +84,7 @@ GetOptions(
     'dst_addr|r:s'  => \$$options{'dst_addr'},
     'pdu_type|p:s'  => \$$options{'pdu_type'},
     'esm_class|c:s' => \$$options{'esm_class'},
+    'all|a'         => \$$options{'all'},
     'help|h'        => \$$options{'help'},
     'man|m'         => \$$options{'man'},
     ) or pod2usage(2);
@@ -96,7 +98,7 @@ die "\nOption -file or -f not specified.\n\n"
 die "\nUsage: $0 [options] [file ...]\n\n" unless @ARGV == 0;
 
 open(my $fh, '<', $$options{'logfile'})
-    or die "Could not open file '$$options{'logfile'}' $!";
+    or die "Could not open file ".$$options{'logfile'}." $!";
 
 my @content = <$fh>;
 chomp @content;
@@ -146,13 +148,17 @@ foreach my $line (@content) {
 }
 
 close $fh # wait for sort to finish
-    or die "Error closing '$$options{'logfile'}' $!";
+    or die "Error closing ".$$options{'logfile'}." $!\n";
 
 if (values %{$HoHRef}) {
     print Dumper $HoHRef;
 }
-else {
+elsif ($$options{'all'}) {
     print Dumper $SecondaryHoHRef;
+    print "Second\n";
+}
+else {
+    print "\nNo match Found at ".$$options{'logfile'}."\n\n";
 }
 
 __END__
@@ -227,9 +233,11 @@ B<This program> will read the given input file(s) and do something
 Written by Athanasios Garyfalos.
 
 =head1 REPORTING BUGS
+
 Please report any bugs or feature requests to GARYFALOS at cpan.org. I will be notified, and I will try to make changes as soon as possible. I will update you with a reply as soon as the modifications will be applied.
 
 =head1 COPYRIGHT
-       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to  the  extent
+
+This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to  the  extent
        permitted by law.
 =cut
