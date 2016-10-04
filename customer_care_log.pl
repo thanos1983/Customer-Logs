@@ -114,6 +114,8 @@ foreach my $line (@content) {
     s{^\s+|\s+$}{}g foreach @values; # Remove white space both sides
     @$hashRef{@customerCareLogs} = @values; # Assign all elements to hash values
 
+    next if $hashRef->{'D'} ne 'D';
+
     if ((defined $$options{'src_esme'}) &&
 	($options->{'src_esme'} eq $hashRef->{'src_esme'})) {
 	$HoHRef->{'Line number: ' . $lineNumber++} = $hashRef;
@@ -155,7 +157,6 @@ if (values %{$HoHRef}) {
 }
 elsif ($$options{'all'}) {
     print Dumper $SecondaryHoHRef;
-    print "Second\n";
 }
 else {
     print "\nNo match Found at ".$$options{'logfile'}."\n\n";
