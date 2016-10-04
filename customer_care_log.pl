@@ -180,6 +180,7 @@ Options:
     --dst_addr or -r,
     --pdu_type or -p,
     --esm_class or -c,
+    --all or -a,
     --help or -h,
     --man or -m
 
@@ -215,6 +216,9 @@ diplay CDR(s) with matching PDU type
 =item B<-e, --esm_class>
 diplay CDR(s) with matching esme class
 
+=item B<-a, --all>
+display all cdr(s) in the file
+
 =item B<-h, --help>
 print a brief help message and exits.
 
@@ -225,8 +229,7 @@ prints the manual page full documentation.
 
 =head1 DESCRIPTION
 
-B<This program> will read the given input file(s) and do something
-    useful with the contents thereof.
+B<This program> will read the given input file(s) and do something useful with the contents thereof.
 
 =head1 AUTHOR
 
@@ -238,6 +241,6 @@ Please report any bugs or feature requests to GARYFALOS at cpan.org. I will be n
 
 =head1 COPYRIGHT
 
-This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to  the  extent
-       permitted by law.
+This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.
+
 =cut
